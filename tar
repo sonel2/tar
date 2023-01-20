@@ -1,0 +1,1369 @@
+package com.example.m1yapplication;
+
+import android.content.Context;
+import android.graphics.Color;
+import android.media.AudioAttributes;
+import android.media.AudioManager;
+import android.media.AudioTrack;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
+import android.os.Build;
+import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.View;
+import android.widget.AbsListView;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.ArrayList;
+import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.stream.Stream;
+
+import static java.lang.String.valueOf;
+
+public  class MainActivity extends AppCompatActivity {
+
+    //Timer timer;
+    //MediaPlayer mp;
+    //ArrayList<Integer> ah;
+    
+    //int i=0;
+
+
+
+
+    /*String resID;
+
+    MediaPlayer m1;
+    MediaPlayer m2;
+    MediaPlayer m3;
+    MediaPlayer m4;
+    MediaPlayer m5;
+    MediaPlayer m6;
+    MediaPlayer m7;
+    MediaPlayer m8;
+    MediaPlayer m9;
+    MediaPlayer m10;
+    MediaPlayer m11;
+    MediaPlayer m12;
+    MediaPlayer m13;
+    MediaPlayer m14;
+    MediaPlayer m15;
+    MediaPlayer m16;
+    MediaPlayer m17;
+    MediaPlayer m18;
+    MediaPlayer m19;
+    MediaPlayer m20;
+    MediaPlayer m21;
+    MediaPlayer n1;
+    MediaPlayer n2;
+    MediaPlayer n3;
+    MediaPlayer n4;
+    MediaPlayer n5;
+    MediaPlayer n6;
+    MediaPlayer n7;
+    MediaPlayer n8;
+    MediaPlayer n9;
+    MediaPlayer n10;
+    MediaPlayer n11;
+    MediaPlayer n12;
+    MediaPlayer n13;
+    MediaPlayer n14;
+    MediaPlayer n15;
+    MediaPlayer n16;
+    MediaPlayer n17;
+    MediaPlayer n18;
+    MediaPlayer n19;
+    MediaPlayer n20;
+    MediaPlayer n21;
+    MediaPlayer n22;
+    MediaPlayer n23;
+    MediaPlayer n24;
+    MediaPlayer n25;
+    MediaPlayer n26;
+    MediaPlayer n27;
+    MediaPlayer n28;
+    MediaPlayer n29;
+    MediaPlayer n30;
+    MediaPlayer n31;
+    MediaPlayer n32;
+    MediaPlayer n33;
+    MediaPlayer n34;
+    MediaPlayer n35;
+    MediaPlayer n36;
+    MediaPlayer n37;
+    MediaPlayer n38;
+    MediaPlayer n39;
+    MediaPlayer n40;
+    MediaPlayer n41;*/
+
+
+
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+
+
+        //ah = new ArrayList<>();
+
+
+
+
+
+
+
+        ListView ListView = findViewById(R.id.hlv);
+                final TextView fi1 = findViewById(R.id.First_Player);
+        final TextView fi2 = findViewById(R.id.Second_Player);
+        final TextView fi3 = findViewById(R.id.Third_Player);
+        final TextView fi4 = findViewById(R.id.Fourth_Player);
+        String z1;
+        String z2;
+        String z3;
+        String z4;
+        z1= Objects.requireNonNull(getIntent().getExtras()).getString("pl1");
+        z2=getIntent().getExtras().getString("pl2");
+        z3=getIntent().getExtras().getString("pl3");
+        z4=getIntent().getExtras().getString("pl4");
+        fi1.setText(z1);
+        fi2.setText(z2);
+        fi3.setText(z3);
+        fi4.setText(z4);
+
+        Button button_add = findViewById(R.id.btadd);
+        Button button_delete = findViewById(R.id.delete);
+
+
+        ArrayList <MydataClass> arrayList= new ArrayList<>();
+
+        Myadapte myadapte=new Myadapte(this,arrayList);
+
+
+        final TextView tev4 = findViewById(R.id.tv4);
+        final TextView tev3 = findViewById(R.id.tv3);
+        final TextView tev2 = findViewById(R.id.tv2);
+        final TextView tev = findViewById(R.id.tv);
+
+        final TextView rr1 = findViewById(R.id.r1);
+        final TextView rr2 = findViewById(R.id.r2);
+        final TextView rr3 = findViewById(R.id.r3);
+        final TextView rr4 = findViewById(R.id.r4);
+
+        button_delete.setOnClickListener(v -> {
+
+            tev4.setText(valueOf(0));
+            tev3.setText(valueOf(0));
+            tev2.setText(valueOf(0));
+            tev.setText(valueOf(0));
+
+        });
+
+        rr1.setText(valueOf(0));
+        rr2.setText(valueOf(0));
+        rr3.setText(valueOf(0));
+        rr4.setText(valueOf(0));
+        rr1.setTextColor(Color.parseColor("#000000"));
+        rr2.setTextColor(Color.parseColor("#000000"));
+        rr3.setTextColor(Color.parseColor("#000000"));
+        rr4.setTextColor(Color.parseColor("#000000"));
+
+        int[] re1 = new int[1];
+        int[] re2 = new int[1];
+        int[] re3 = new int[1];
+        int[] re4 = new int[1];
+
+        button_add.setOnClickListener(v -> {
+
+
+
+            //ah = new ArrayList<>();
+
+            int dd;
+            int ee;
+            int ff;
+            int gg;
+            int count=arrayList.size()+1;
+            dd = Integer.parseInt(tev4.getText().toString());
+            ee = Integer.parseInt(tev3.getText().toString());
+            ff = Integer.parseInt(tev2.getText().toString());
+            gg = Integer.parseInt(tev.getText().toString());
+            arrayList.add(new MydataClass(count,dd,ee,ff,gg));
+
+            int sum=arrayList.stream().mapToInt(MydataClass::gethe4).sum();
+            int sum2=arrayList.stream().mapToInt(MydataClass::gethe3).sum();
+            int sum3=arrayList.stream().mapToInt(MydataClass::gethe2).sum();
+            int sum4=arrayList.stream().mapToInt(MydataClass::gethe1).sum();
+
+            ListView.setAdapter(myadapte);
+
+            tev.setText(valueOf(0));
+            tev2.setText(valueOf(0));
+            tev3.setText(valueOf(0));
+            tev4.setText(valueOf(0));
+
+            rr1.setText(valueOf(sum));
+            rr2.setText(valueOf(sum2));
+            rr3.setText(valueOf(sum3));
+            rr4.setText(valueOf(sum4));
+
+            re1[0]= Integer.parseInt(rr1.getText().toString());
+            re2[0] = Integer.parseInt(rr2.getText().toString());
+            re3[0] = Integer.parseInt(rr3.getText().toString());
+            re4[0] = Integer.parseInt(rr4.getText().toString());
+
+            if ((re1[0] >=re2[0])&&(re1[0]>=re3[0])&&(re1[0]>=re4[0])){
+                rr1.setTextColor(Color.parseColor("#00BD00"));
+                rr2.setTextColor(Color.parseColor("#000000"));
+                rr3.setTextColor(Color.parseColor("#000000"));
+                rr4.setTextColor(Color.parseColor("#000000"));
+            }
+
+            else if ((re2[0]>=re3[0])&&(re2[0]>=re4[0])){
+                rr1.setTextColor(Color.parseColor("#000000"));
+                rr2.setTextColor(Color.parseColor("#00BD00"));
+                rr3.setTextColor(Color.parseColor("#000000"));
+                rr4.setTextColor(Color.parseColor("#000000"));
+            }
+
+            else if ((re3[0]>=re4[0])){
+                rr1.setTextColor(Color.parseColor("#000000"));
+                rr2.setTextColor(Color.parseColor("#000000"));
+                rr3.setTextColor(Color.parseColor("#00BD00"));
+                rr4.setTextColor(Color.parseColor("#000000"));
+            }
+
+            else {
+                rr1.setTextColor(Color.parseColor("#000000"));
+                rr2.setTextColor(Color.parseColor("#000000"));
+                rr3.setTextColor(Color.parseColor("#000000"));
+                rr4.setTextColor(Color.parseColor("#00BD00"));
+
+            }
+
+            if ((re1[0] ==re2[0])&&(re1[0]>=re3[0])&&(re1[0]>=re4[0])){
+                rr1.setTextColor(Color.parseColor("#00BD00"));
+                rr2.setTextColor(Color.parseColor("#00BD00"));
+                rr3.setTextColor(Color.parseColor("#000000"));
+                rr4.setTextColor(Color.parseColor("#000000"));
+            }
+
+            if ((re1[0] >=re2[0])&&(re1[0]==re3[0])&&(re1[0]>=re4[0])){
+                rr1.setTextColor(Color.parseColor("#00BD00"));
+                rr2.setTextColor(Color.parseColor("#000000"));
+                rr3.setTextColor(Color.parseColor("#00BD00"));
+                rr4.setTextColor(Color.parseColor("#000000"));
+            }
+            if ((re1[0] >=re2[0])&&(re1[0]>=re3[0])&&(re1[0]==re4[0])){
+                rr1.setTextColor(Color.parseColor("#00BD00"));
+                rr2.setTextColor(Color.parseColor("#000000"));
+                rr3.setTextColor(Color.parseColor("#000000"));
+                rr4.setTextColor(Color.parseColor("#00BD00"));
+            }
+            if ((re1[0] >=re2[0])&&(re1[0]==re3[0])&&(re1[0]==re4[0])){
+                rr1.setTextColor(Color.parseColor("#00BD00"));
+                rr2.setTextColor(Color.parseColor("#ff0000"));
+                rr3.setTextColor(Color.parseColor("#00BD00"));
+                rr4.setTextColor(Color.parseColor("#00BD00"));
+            }
+            if ((re1[0] ==re2[0])&&(re1[0]>=re3[0])&&(re1[0]==re4[0])){
+                rr1.setTextColor(Color.parseColor("#00BD00"));
+                rr2.setTextColor(Color.parseColor("#00BD00"));
+                rr3.setTextColor(Color.parseColor("#ff0000"));
+                rr4.setTextColor(Color.parseColor("#00BD00"));
+            }
+            if ((re1[0] ==re2[0])&&(re1[0]==re3[0])&&(re1[0]>=re4[0])){
+                rr1.setTextColor(Color.parseColor("#00BD00"));
+                rr2.setTextColor(Color.parseColor("#00BD00"));
+                rr3.setTextColor(Color.parseColor("#00BD00"));
+                rr4.setTextColor(Color.parseColor("#ff0000"));
+            }
+
+            if ((re1[0] ==re2[0])&&(re2[0]>=re3[0])&&(re2[0]>=re4[0])){
+                rr1.setTextColor(Color.parseColor("#00BD00"));
+                rr2.setTextColor(Color.parseColor("#00BD00"));
+                rr3.setTextColor(Color.parseColor("#000000"));
+                rr4.setTextColor(Color.parseColor("#000000"));
+            }
+            if ((re2[0] >=re1[0])&&(re2[0]==re3[0])&&(re2[0]>=re4[0])){
+                rr1.setTextColor(Color.parseColor("#000000"));
+                rr2.setTextColor(Color.parseColor("#00BD00"));
+                rr3.setTextColor(Color.parseColor("#00BD00"));
+                rr4.setTextColor(Color.parseColor("#000000"));
+            }
+            if ((re2[0] >=re1[0])&&(re2[0]>=re3[0])&&(re2[0]==re4[0])){
+                rr1.setTextColor(Color.parseColor("#000000"));
+                rr2.setTextColor(Color.parseColor("#00BD00"));
+                rr3.setTextColor(Color.parseColor("#000000"));
+                rr4.setTextColor(Color.parseColor("#00BD00"));
+            }
+            if ((re2[0] >=re1[0])&&(re2[0]==re3[0])&&(re2[0]==re4[0])){
+                rr1.setTextColor(Color.parseColor("#ff0000"));
+                rr2.setTextColor(Color.parseColor("#00BD00"));
+                rr3.setTextColor(Color.parseColor("#00BD00"));
+                rr4.setTextColor(Color.parseColor("#00BD00"));
+            }
+            if ((re2[0] ==re1[0])&&(re2[0]>=re3[0])&&(re2[0]==re4[0])){
+                rr1.setTextColor(Color.parseColor("#00BD00"));
+                rr2.setTextColor(Color.parseColor("#00BD00"));
+                rr3.setTextColor(Color.parseColor("#ff0000"));
+                rr4.setTextColor(Color.parseColor("#00BD00"));
+            }
+            if ((re1[0] ==re2[0])&&(re2[0]==re3[0])&&(re2[0]>=re4[0])){
+                rr1.setTextColor(Color.parseColor("#00BD00"));
+                rr2.setTextColor(Color.parseColor("#00BD00"));
+                rr3.setTextColor(Color.parseColor("#00BD00"));
+                rr4.setTextColor(Color.parseColor("#ff0000"));
+            }
+            // 3
+            if ((re3[0] ==re2[0])&&(re3[0]>=re1[0])&&(re3[0]>=re4[0])){
+                rr1.setTextColor(Color.parseColor("#000000"));
+                rr2.setTextColor(Color.parseColor("#00BD00"));
+                rr3.setTextColor(Color.parseColor("#00BD00"));
+                rr4.setTextColor(Color.parseColor("#000000"));
+            }
+            if ((re3[0] >=re1[0])&&(re2[0]==re3[0])&&(re3[0]>=re4[0])){
+                rr1.setTextColor(Color.parseColor("#000000"));
+                rr2.setTextColor(Color.parseColor("#00BD00"));
+                rr3.setTextColor(Color.parseColor("#00BD00"));
+                rr4.setTextColor(Color.parseColor("#000000"));
+            }
+            if ((re3[0] >=re1[0])&&(re3[0]>=re2[0])&&(re3[0]==re4[0])){
+                rr1.setTextColor(Color.parseColor("#ff0000"));
+                rr2.setTextColor(Color.parseColor("#000000"));
+                rr3.setTextColor(Color.parseColor("#00BD00"));
+                rr4.setTextColor(Color.parseColor("#00BD00"));
+            }
+            if ((re3[0] >=re1[0])&&(re2[0]==re3[0])&&(re3[0]==re4[0])){
+                rr1.setTextColor(Color.parseColor("#ff0000"));
+                rr2.setTextColor(Color.parseColor("#00BD00"));
+                rr3.setTextColor(Color.parseColor("#00BD00"));
+                rr4.setTextColor(Color.parseColor("#00BD00"));
+            }
+            if ((re3[0] ==re1[0])&&(re3[0]>=re2[0])&&(re3[0]==re4[0])){
+                rr1.setTextColor(Color.parseColor("#00BD00"));
+                rr2.setTextColor(Color.parseColor("#ff0000"));
+                rr3.setTextColor(Color.parseColor("#00BD00"));
+                rr4.setTextColor(Color.parseColor("#00BD00"));
+            }
+            if ((re3[0] ==re2[0])&&(re3[0]==re1[0])&&(re3[0]>=re4[0])) {
+                rr1.setTextColor(Color.parseColor("#00BD00"));
+                rr2.setTextColor(Color.parseColor("#00BD00"));
+                rr3.setTextColor(Color.parseColor("#00BD00"));
+                rr4.setTextColor(Color.parseColor("#ff0000"));
+            }
+            //4
+            if ((re4[0] ==re2[0])&&(re4[0]>=re1[0])&&(re4[0]>=re3[0])){
+                rr1.setTextColor(Color.parseColor("#000000"));
+                rr2.setTextColor(Color.parseColor("#00BD00"));
+                rr3.setTextColor(Color.parseColor("#000000"));
+                rr4.setTextColor(Color.parseColor("#00BD00"));
+            }
+            if ((re4[0] >=re1[0])&&(re4[0]==re3[0])&&(re4[0]>=re2[0])){
+                rr1.setTextColor(Color.parseColor("#000000"));
+                rr2.setTextColor(Color.parseColor("#000000"));
+                rr3.setTextColor(Color.parseColor("#00BD00"));
+                rr4.setTextColor(Color.parseColor("#00BD00"));
+            }
+            if ((re4[0] >=re1[0])&&(re4[0]>=re3[0])&&(re4[0]==re2[0])){
+                rr1.setTextColor(Color.parseColor("#000000"));
+                rr2.setTextColor(Color.parseColor("#00BD00"));
+                rr3.setTextColor(Color.parseColor("#000000"));
+                rr4.setTextColor(Color.parseColor("#00BD00"));
+            }
+            if ((re4[0] >=re1[0])&&(re4[0]==re3[0])&&(re4[0]==re2[0])){
+                rr1.setTextColor(Color.parseColor("#ff0000"));
+                rr2.setTextColor(Color.parseColor("#00BD00"));
+                rr3.setTextColor(Color.parseColor("#00BD00"));
+                rr4.setTextColor(Color.parseColor("#00BD00"));
+            }
+            if ((re4[0] ==re1[0])&&(re4[0]>=re2[0])&&(re4[0]==re3[0])){
+                rr1.setTextColor(Color.parseColor("#00BD00"));
+                rr2.setTextColor(Color.parseColor("#ff0000"));
+                rr3.setTextColor(Color.parseColor("#00BD00"));
+                rr4.setTextColor(Color.parseColor("#00BD00"));
+            }
+            if ((re4[0] ==re2[0])&&(re4[0]==re1[0])&&(re4[0]>=re3[0])) {
+                rr1.setTextColor(Color.parseColor("#00BD00"));
+                rr2.setTextColor(Color.parseColor("#00BD00"));
+                rr3.setTextColor(Color.parseColor("#ff0000"));
+                rr4.setTextColor(Color.parseColor("#00BD00"));
+            }
+            //min
+            if ((re1[0] <=re2[0])&&(re1[0]<=re3[0])&&(re1[0]<=re4[0])){
+                rr1.setTextColor(Color.parseColor("#ff0000"));
+
+            }
+
+            else if ((re2[0]<=re3[0])&&(re2[0]<=re4[0])){
+                rr2.setTextColor(Color.parseColor("#ff0000"));
+            }
+
+            else if ((re3[0]<=re4[0])){
+                rr3.setTextColor(Color.parseColor("#ff0000"));
+
+            }
+
+            else  {
+                rr4.setTextColor(Color.parseColor("#ff0000"));
+
+            }
+
+            if ((re1[0] ==re2[0])&&(re1[0]<=re3[0])&&(re1[0]<=re4[0])){
+                rr1.setTextColor(Color.parseColor("#ff0000"));
+                rr2.setTextColor(Color.parseColor("#ff0000"));
+
+
+            }
+            if ((re1[0] <=re2[0])&&(re1[0]==re3[0])&&(re1[0]<=re4[0])){
+                rr1.setTextColor(Color.parseColor("#ff0000"));
+
+                rr3.setTextColor(Color.parseColor("#ff0000"));
+
+            }
+            if ((re1[0] <=re2[0])&&(re1[0]<=re3[0])&&(re1[0]==re4[0])){
+                rr1.setTextColor(Color.parseColor("#ff0000"));
+
+
+                rr4.setTextColor(Color.parseColor("#ff0000"));
+            }
+            if ((re1[0] <=re2[0])&&(re1[0]==re3[0])&&(re1[0]==re4[0])){
+                rr1.setTextColor(Color.parseColor("#ff0000"));
+                rr2.setTextColor(Color.parseColor("#00BD00"));
+                rr3.setTextColor(Color.parseColor("#ff0000"));
+                rr4.setTextColor(Color.parseColor("#ff0000"));
+            }
+            if ((re1[0] ==re2[0])&&(re1[0]<=re3[0])&&(re1[0]==re4[0])){
+                rr1.setTextColor(Color.parseColor("#ff0000"));
+                rr2.setTextColor(Color.parseColor("#ff0000"));
+                rr3.setTextColor(Color.parseColor("#00BD00"));
+                rr4.setTextColor(Color.parseColor("#ff0000"));
+            }
+            if ((re1[0] ==re2[0])&&(re1[0]==re3[0])&&(re1[0]<=re4[0])){
+                rr1.setTextColor(Color.parseColor("#ff0000"));
+                rr2.setTextColor(Color.parseColor("#ff0000"));
+                rr3.setTextColor(Color.parseColor("#ff0000"));
+                rr4.setTextColor(Color.parseColor("#00BD00"));
+            }
+
+            //هنا منكفي 2 و3 و4
+            if ((re1[0] ==re2[0])&&(re2[0]<=re3[0])&&(re2[0]<=re4[0])){
+                rr1.setTextColor(Color.parseColor("#ff0000"));
+                rr2.setTextColor(Color.parseColor("#ff0000"));
+
+
+            }
+            if ((re2[0] <=re1[0])&&(re2[0]==re3[0])&&(re2[0]<=re4[0])){
+
+                rr2.setTextColor(Color.parseColor("#ff0000"));
+                rr3.setTextColor(Color.parseColor("#ff0000"));
+
+            }
+            if ((re2[0] <=re1[0])&&(re2[0]<=re3[0])&&(re2[0]==re4[0])){
+
+                rr2.setTextColor(Color.parseColor("#ff0000"));
+
+                rr4.setTextColor(Color.parseColor("#ff0000"));
+            }
+            if ((re2[0] <=re1[0])&&(re2[0]==re3[0])&&(re2[0]==re4[0])){
+                rr1.setTextColor(Color.parseColor("#00BD00"));
+                rr2.setTextColor(Color.parseColor("#ff0000"));
+                rr3.setTextColor(Color.parseColor("#ff0000"));
+                rr4.setTextColor(Color.parseColor("#ff0000"));
+            }
+            if ((re2[0] ==re1[0])&&(re2[0]<=re3[0])&&(re2[0]==re4[0])){
+                rr1.setTextColor(Color.parseColor("#ff0000"));
+                rr2.setTextColor(Color.parseColor("#ff0000"));
+                rr3.setTextColor(Color.parseColor("#00BD00"));
+                rr4.setTextColor(Color.parseColor("#ff0000"));
+            }
+            if ((re1[0] ==re2[0])&&(re2[0]==re3[0])&&(re2[0]<=re4[0])){
+                rr1.setTextColor(Color.parseColor("#ff0000"));
+                rr2.setTextColor(Color.parseColor("#ff0000"));
+                rr3.setTextColor(Color.parseColor("#ff0000"));
+                rr4.setTextColor(Color.parseColor("#00BD00"));
+            }
+            // 3
+            if ((re3[0] ==re2[0])&&(re3[0]<=re1[0])&&(re3[0]<=re4[0])){
+
+                rr2.setTextColor(Color.parseColor("#ff0000"));
+                rr3.setTextColor(Color.parseColor("#ff0000"));
+
+            }
+            if ((re3[0] <=re1[0])&&(re2[0]==re3[0])&&(re3[0]<=re4[0])){
+
+                rr2.setTextColor(Color.parseColor("#ff0000"));
+                rr3.setTextColor(Color.parseColor("#ff0000"));
+
+            }
+            if ((re3[0] <=re1[0])&&(re3[0]<=re2[0])&&(re3[0]==re4[0])){
+
+
+                rr3.setTextColor(Color.parseColor("#ff0000"));
+                rr4.setTextColor(Color.parseColor("#ff0000"));
+            }
+            if ((re3[0] <=re1[0])&&(re2[0]==re3[0])&&(re3[0]==re4[0])){
+                rr1.setTextColor(Color.parseColor("#00BD00"));
+                rr2.setTextColor(Color.parseColor("#ff0000"));
+                rr3.setTextColor(Color.parseColor("#ff0000"));
+                rr4.setTextColor(Color.parseColor("#ff0000"));
+            }
+            if ((re3[0] ==re1[0])&&(re3[0]<=re2[0])&&(re3[0]==re4[0])){
+                rr1.setTextColor(Color.parseColor("#ff0000"));
+                rr2.setTextColor(Color.parseColor("#00BD00"));
+                rr3.setTextColor(Color.parseColor("#ff0000"));
+                rr4.setTextColor(Color.parseColor("#ff0000"));
+            }
+            if ((re3[0] ==re2[0])&&(re3[0]==re1[0])&&(re3[0]<=re4[0])) {
+                rr1.setTextColor(Color.parseColor("#ff0000"));
+                rr2.setTextColor(Color.parseColor("#ff0000"));
+                rr3.setTextColor(Color.parseColor("#ff0000"));
+                rr4.setTextColor(Color.parseColor("#00BD00"));
+            }
+            //4
+            if ((re4[0] ==re2[0])&&(re4[0]<=re1[0])&&(re4[0]<=re3[0])){
+
+                rr2.setTextColor(Color.parseColor("#ff0000"));
+
+                rr4.setTextColor(Color.parseColor("#ff0000"));
+            }
+            if ((re4[0] <=re1[0])&&(re4[0]==re3[0])&&(re4[0]<=re2[0])){
+
+
+                rr3.setTextColor(Color.parseColor("#ff0000"));
+                rr4.setTextColor(Color.parseColor("#ff0000"));
+            }
+            if ((re4[0] <=re1[0])&&(re4[0]<=re3[0])&&(re4[0]==re2[0])){
+
+                rr2.setTextColor(Color.parseColor("#ff0000"));
+
+                rr4.setTextColor(Color.parseColor("#ff0000"));
+            }
+            if ((re4[0] <=re1[0])&&(re4[0]==re3[0])&&(re4[0]==re2[0])){
+                rr1.setTextColor(Color.parseColor("#00BD00"));
+                rr2.setTextColor(Color.parseColor("#ff0000"));
+                rr3.setTextColor(Color.parseColor("#ff0000"));
+                rr4.setTextColor(Color.parseColor("#ff0000"));
+            }
+            if ((re4[0] ==re1[0])&&(re4[0]<=re2[0])&&(re4[0]==re3[0])){
+                rr1.setTextColor(Color.parseColor("#ff0000"));
+                rr2.setTextColor(Color.parseColor("#00BD00"));
+                rr3.setTextColor(Color.parseColor("#ff0000"));
+                rr4.setTextColor(Color.parseColor("#ff0000"));
+            }
+            if ((re4[0] ==re2[0])&&(re4[0]==re1[0])&&(re4[0]<=re3[0])) {
+                rr1.setTextColor(Color.parseColor("#ff0000"));
+                rr2.setTextColor(Color.parseColor("#ff0000"));
+                rr3.setTextColor(Color.parseColor("#00BD00"));
+                rr4.setTextColor(Color.parseColor("#ff0000"));
+            }
+            if ((re1[0] ==re2[0])&&(re1[0]==re3[0])&&(re1[0]==re4[0])){
+                rr1.setTextColor(Color.parseColor("#000000"));
+                rr2.setTextColor(Color.parseColor("#000000"));
+                rr3.setTextColor(Color.parseColor("#000000"));
+                rr4.setTextColor(Color.parseColor("#000000"));
+            }
+
+
+            /*if (re4[0]== -21){ah.add(R.raw.m21);}
+            if (re4[0]== -20){ah.add(R.raw.m20);}
+            if (re4[0]== -19){ah.add(R.raw.m19);}
+            if (re4[0]== -18){ah.add(R.raw.m18);}
+            if (re4[0]== -17){ah.add(R.raw.m17);}
+            if (re4[0]== -16){ah.add(R.raw.m16);}
+            if (re4[0]== -15){ah.add(R.raw.m15);}
+            if (re4[0]== -14){ah.add(R.raw.m14);}
+            if (re4[0]== -13){ah.add(R.raw.m13);}
+            if (re4[0]== -12){ah.add(R.raw.m12);}
+            if (re4[0]== -11){ah.add(R.raw.m11);}
+            if (re4[0]== -10){ah.add(R.raw.m10);}
+            if (re4[0]== -9){ah.add(R.raw.m9);}
+            if (re4[0]== -8){ah.add(R.raw.m8);}
+            if (re4[0]== -7){ah.add(R.raw.m7);}
+            if (re4[0]== -6){ah.add(R.raw.m6);}
+            if (re4[0]== -5){ah.add(R.raw.m5);}
+            if (re4[0]== -4){ah.add(R.raw.m4);}
+            if (re4[0]== -3){ah.add(R.raw.m3);}
+            if (re4[0]== -2){ah.add(R.raw.m2);}
+            if (re4[0]== -1){ah.add(R.raw.m1);}
+            if (re4[0]== 0){ah.add(R.raw.n0);}
+            if (re4[0]== 1){ah.add(R.raw.n1);}
+            if (re4[0]== 2){ah.add(R.raw.n2);}
+            if (re4[0]== 3){ah.add(R.raw.n3);}
+            if (re4[0]== 4){ah.add(R.raw.n4);}
+            if (re4[0]== 5){ah.add(R.raw.n5);}
+            if (re4[0]== 6){ah.add(R.raw.n6);}
+            if (re4[0]== 7){ah.add(R.raw.n7);}
+            if (re4[0]== 8){ah.add(R.raw.n8);}
+            if (re4[0]== 9){ah.add(R.raw.n9);}
+            if (re4[0]== 10){ah.add(R.raw.n10);}
+            if (re4[0]== 11){ah.add(R.raw.n11);}
+            if (re4[0]== 12){ah.add(R.raw.n12);}
+            if (re4[0]== 13){ah.add(R.raw.n13);}
+            if (re4[0]== 14){ah.add(R.raw.n14);}
+            if (re4[0]== 15){ah.add(R.raw.n15);}
+            if (re4[0]== 16){ah.add(R.raw.n16);}
+            if (re4[0]== 17){ah.add(R.raw.n17);}
+            if (re4[0]== 18){ah.add(R.raw.n18);}
+            if (re4[0]== 19){ah.add(R.raw.n19);}
+            if (re4[0]== 20){ah.add(R.raw.n20);}
+            if (re4[0]== 21){ah.add(R.raw.n21);}
+            if (re4[0]== 22){ah.add(R.raw.n22);}
+            if (re4[0]== 23){ah.add(R.raw.n23);}
+            if (re4[0]== 24){ah.add(R.raw.n24);}
+            if (re4[0]== 25){ah.add(R.raw.n25);}
+            if (re4[0]== 26){ah.add(R.raw.n26);}
+            if (re4[0]== 27){ah.add(R.raw.n27);}
+            if (re4[0]== 28){ah.add(R.raw.n28);}
+            if (re4[0]== 29){ah.add(R.raw.n29);}
+            if (re4[0]== 30){ah.add(R.raw.n30);}
+            if (re4[0]== 31){ah.add(R.raw.n31);}
+            if (re4[0]== 32){ah.add(R.raw.n32);}
+            if (re4[0]== 33){ah.add(R.raw.n33);}
+            if (re4[0]== 34){ah.add(R.raw.n34);}
+            if (re4[0]== 35){ah.add(R.raw.n35);}
+            if (re4[0]== 36){ah.add(R.raw.n36);}
+            if (re4[0]== 37){ah.add(R.raw.n37);}
+            if (re4[0]== 38){ah.add(R.raw.n38);}
+            if (re4[0]== 39){ah.add(R.raw.n39);}
+            if (re4[0]== 40){ah.add(R.raw.n40);}
+            if (re4[0]== 41){ah.add(R.raw.n41);}
+
+
+            if (re3[0]== -21){ah.add(R.raw.m21);}
+            if (re3[0]== -20){ah.add(R.raw.m20);}
+            if (re3[0]== -19){ah.add(R.raw.m19);}
+            if (re3[0]== -18){ah.add(R.raw.m18);}
+            if (re3[0]== -17){ah.add(R.raw.m17);}
+            if (re3[0]== -16){ah.add(R.raw.m16);}
+            if (re3[0]== -15){ah.add(R.raw.m15);}
+            if (re3[0]== -14){ah.add(R.raw.m14);}
+            if (re3[0]== -13){ah.add(R.raw.m13);}
+            if (re3[0]== -12){ah.add(R.raw.m12);}
+            if (re3[0]== -11){ah.add(R.raw.m11);}
+            if (re3[0]== -10){ah.add(R.raw.m10);}
+            if (re3[0]== -9){ah.add(R.raw.m9);}
+            if (re3[0]== -8){ah.add(R.raw.m8);}
+            if (re3[0]== -7){ah.add(R.raw.m7);}
+            if (re3[0]== -6){ah.add(R.raw.m6);}
+            if (re3[0]== -5){ah.add(R.raw.m5);}
+            if (re3[0]== -4){ah.add(R.raw.m4);}
+            if (re3[0]== -3){ah.add(R.raw.m3);}
+            if (re3[0]== -2){ah.add(R.raw.m2);}
+            if (re3[0]== -1){ah.add(R.raw.m1);}
+            if (re3[0]== 0){ah.add(R.raw.n0);}
+            if (re3[0]== 1){ah.add(R.raw.n1);}
+            if (re3[0]== 2){ah.add(R.raw.n2);}
+            if (re3[0]== 3){ah.add(R.raw.n3);}
+            if (re3[0]== 4){ah.add(R.raw.n4);}
+            if (re3[0]== 5){ah.add(R.raw.n5);}
+            if (re3[0]== 6){ah.add(R.raw.n6);}
+            if (re3[0]== 7){ah.add(R.raw.n7);}
+            if (re3[0]== 8){ah.add(R.raw.n8);}
+            if (re3[0]== 9){ah.add(R.raw.n9);}
+            if (re3[0]== 10){ah.add(R.raw.n10);}
+            if (re3[0]== 11){ah.add(R.raw.n11);}
+            if (re3[0]== 12){ah.add(R.raw.n12);}
+            if (re3[0]== 13){ah.add(R.raw.n13);}
+            if (re3[0]== 14){ah.add(R.raw.n14);}
+            if (re3[0]== 15){ah.add(R.raw.n15);}
+            if (re3[0]== 16){ah.add(R.raw.n16);}
+            if (re3[0]== 17){ah.add(R.raw.n17);}
+            if (re3[0]== 18){ah.add(R.raw.n18);}
+            if (re3[0]== 19){ah.add(R.raw.n19);}
+            if (re3[0]== 20){ah.add(R.raw.n20);}
+            if (re3[0]== 21){ah.add(R.raw.n21);}
+            if (re3[0]== 22){ah.add(R.raw.n22);}
+            if (re3[0]== 23){ah.add(R.raw.n23);}
+            if (re3[0]== 24){ah.add(R.raw.n24);}
+            if (re3[0]== 25){ah.add(R.raw.n25);}
+            if (re3[0]== 26){ah.add(R.raw.n26);}
+            if (re3[0]== 27){ah.add(R.raw.n27);}
+            if (re3[0]== 28){ah.add(R.raw.n28);}
+            if (re3[0]== 29){ah.add(R.raw.n29);}
+            if (re3[0]== 30){ah.add(R.raw.n30);}
+            if (re3[0]== 31){ah.add(R.raw.n31);}
+            if (re3[0]== 32){ah.add(R.raw.n32);}
+            if (re3[0]== 33){ah.add(R.raw.n33);}
+            if (re3[0]== 34){ah.add(R.raw.n34);}
+            if (re3[0]== 35){ah.add(R.raw.n35);}
+            if (re3[0]== 36){ah.add(R.raw.n36);}
+            if (re3[0]== 37){ah.add(R.raw.n37);}
+            if (re3[0]== 38){ah.add(R.raw.n38);}
+            if (re3[0]== 39){ah.add(R.raw.n39);}
+            if (re3[0]== 40){ah.add(R.raw.n40);}
+            if (re3[0]== 41){ah.add(R.raw.n41);}
+
+            if (re2[0]== -21){ah.add(R.raw.m21);}
+            if (re2[0]== -20){ah.add(R.raw.m20);}
+            if (re2[0]== -19){ah.add(R.raw.m19);}
+            if (re2[0]== -18){ah.add(R.raw.m18);}
+            if (re2[0]== -17){ah.add(R.raw.m17);}
+            if (re2[0]== -16){ah.add(R.raw.m16);}
+            if (re2[0]== -15){ah.add(R.raw.m15);}
+            if (re2[0]== -14){ah.add(R.raw.m14);}
+            if (re2[0]== -13){ah.add(R.raw.m13);}
+            if (re2[0]== -12){ah.add(R.raw.m12);}
+            if (re2[0]== -11){ah.add(R.raw.m11);}
+            if (re2[0]== -10){ah.add(R.raw.m10);}
+            if (re2[0]== -9){ah.add(R.raw.m9);}
+            if (re2[0]== -8){ah.add(R.raw.m8);}
+            if (re2[0]== -7){ah.add(R.raw.m7);}
+            if (re2[0]== -6){ah.add(R.raw.m6);}
+            if (re2[0]== -5){ah.add(R.raw.m5);}
+            if (re2[0]== -4){ah.add(R.raw.m4);}
+            if (re2[0]== -3){ah.add(R.raw.m3);}
+            if (re2[0]== -2){ah.add(R.raw.m2);}
+            if (re2[0]== -1){ah.add(R.raw.m1);}
+            if (re2[0]== 0){ah.add(R.raw.n0);}
+            if (re2[0]== 1){ah.add(R.raw.n1);}
+            if (re2[0]== 2){ah.add(R.raw.n2);}
+            if (re2[0]== 3){ah.add(R.raw.n3);}
+            if (re2[0]== 4){ah.add(R.raw.n4);}
+            if (re2[0]== 5){ah.add(R.raw.n5);}
+            if (re2[0]== 6){ah.add(R.raw.n6);}
+            if (re2[0]== 7){ah.add(R.raw.n7);}
+            if (re2[0]== 8){ah.add(R.raw.n8);}
+            if (re2[0]== 9){ah.add(R.raw.n9);}
+            if (re2[0]== 10){ah.add(R.raw.n10);}
+            if (re2[0]== 11){ah.add(R.raw.n11);}
+            if (re2[0]== 12){ah.add(R.raw.n12);}
+            if (re2[0]== 13){ah.add(R.raw.n13);}
+            if (re2[0]== 14){ah.add(R.raw.n14);}
+            if (re2[0]== 15){ah.add(R.raw.n15);}
+            if (re2[0]== 16){ah.add(R.raw.n16);}
+            if (re2[0]== 17){ah.add(R.raw.n17);}
+            if (re2[0]== 18){ah.add(R.raw.n18);}
+            if (re2[0]== 19){ah.add(R.raw.n19);}
+            if (re2[0]== 20){ah.add(R.raw.n20);}
+            if (re2[0]== 21){ah.add(R.raw.n21);}
+            if (re2[0]== 22){ah.add(R.raw.n22);}
+            if (re2[0]== 23){ah.add(R.raw.n23);}
+            if (re2[0]== 24){ah.add(R.raw.n24);}
+            if (re2[0]== 25){ah.add(R.raw.n25);}
+            if (re2[0]== 26){ah.add(R.raw.n26);}
+            if (re2[0]== 27){ah.add(R.raw.n27);}
+            if (re2[0]== 28){ah.add(R.raw.n28);}
+            if (re2[0]== 29){ah.add(R.raw.n29);}
+            if (re2[0]== 30){ah.add(R.raw.n30);}
+            if (re2[0]== 31){ah.add(R.raw.n31);}
+            if (re2[0]== 32){ah.add(R.raw.n32);}
+            if (re2[0]== 33){ah.add(R.raw.n33);}
+            if (re2[0]== 34){ah.add(R.raw.n34);}
+            if (re2[0]== 35){ah.add(R.raw.n35);}
+            if (re2[0]== 36){ah.add(R.raw.n36);}
+            if (re2[0]== 37){ah.add(R.raw.n37);}
+            if (re2[0]== 38){ah.add(R.raw.n38);}
+            if (re2[0]== 39){ah.add(R.raw.n39);}
+            if (re2[0]== 40){ah.add(R.raw.n40);}
+            if (re2[0]== 41){ah.add(R.raw.n41);}
+
+
+
+            if (re1[0]== -21){ah.add(R.raw.m21);}
+            if (re1[0]== -20){ah.add(R.raw.m20);}
+            if (re1[0]== -19){ah.add(R.raw.m19);}
+            if (re1[0]== -18){ah.add(R.raw.m18);}
+            if (re1[0]== -17){ah.add(R.raw.m17);}
+            if (re1[0]== -16){ah.add(R.raw.m16);}
+            if (re1[0]== -15){ah.add(R.raw.m15);}
+            if (re1[0]== -14){ah.add(R.raw.m14);}
+            if (re1[0]== -13){ah.add(R.raw.m13);}
+            if (re1[0]== -12){ah.add(R.raw.m12);}
+            if (re1[0]== -11){ah.add(R.raw.m11);}
+            if (re1[0]== -10){ah.add(R.raw.m10);}
+            if (re1[0]== -9){ah.add(R.raw.m9);}
+            if (re1[0]== -8){ah.add(R.raw.m8);}
+            if (re1[0]== -7){ah.add(R.raw.m7);}
+            if (re1[0]== -6){ah.add(R.raw.m6);}
+            if (re1[0]== -5){ah.add(R.raw.m5);}
+            if (re1[0]== -4){ah.add(R.raw.m4);}
+            if (re1[0]== -3){ah.add(R.raw.m3);}
+            if (re1[0]== -2){ah.add(R.raw.m2);}
+            if (re1[0]== -1){ah.add(R.raw.m1);}
+            if (re1[0]== 0){ah.add(R.raw.n0);}
+            if (re1[0]== 1){ah.add(R.raw.n1);}
+            if (re1[0]== 2){ah.add(R.raw.n2);}
+            if (re1[0]== 3){ah.add(R.raw.n3);}
+            if (re1[0]== 4){ah.add(R.raw.n4);}
+            if (re1[0]== 5){ah.add(R.raw.n5);}
+            if (re1[0]== 6){ah.add(R.raw.n6);}
+            if (re1[0]== 7){ah.add(R.raw.n7);}
+            if (re1[0]== 8){ah.add(R.raw.n8);}
+            if (re1[0]== 9){ah.add(R.raw.n9);}
+            if (re1[0]== 10){ah.add(R.raw.n10);}
+            if (re1[0]== 11){ah.add(R.raw.n11);}
+            if (re1[0]== 12){ah.add(R.raw.n12);}
+            if (re1[0]== 13){ah.add(R.raw.n13);}
+            if (re1[0]== 14){ah.add(R.raw.n14);}
+            if (re1[0]== 15){ah.add(R.raw.n15);}
+            if (re1[0]== 16){ah.add(R.raw.n16);}
+            if (re1[0]== 17){ah.add(R.raw.n17);}
+            if (re1[0]== 18){ah.add(R.raw.n18);}
+            if (re1[0]== 19){ah.add(R.raw.n19);}
+            if (re1[0]== 20){ah.add(R.raw.n20);}
+            if (re1[0]== 21){ah.add(R.raw.n21);}
+            if (re1[0]== 22){ah.add(R.raw.n22);}
+            if (re1[0]== 23){ah.add(R.raw.n23);}
+            if (re1[0]== 24){ah.add(R.raw.n24);}
+            if (re1[0]== 25){ah.add(R.raw.n25);}
+            if (re1[0]== 26){ah.add(R.raw.n26);}
+            if (re1[0]== 27){ah.add(R.raw.n27);}
+            if (re1[0]== 28){ah.add(R.raw.n28);}
+            if (re1[0]== 29){ah.add(R.raw.n29);}
+            if (re1[0]== 30){ah.add(R.raw.n30);}
+            if (re1[0]== 31){ah.add(R.raw.n31);}
+            if (re1[0]== 32){ah.add(R.raw.n32);}
+            if (re1[0]== 33){ah.add(R.raw.n33);}
+            if (re1[0]== 34){ah.add(R.raw.n34);}
+            if (re1[0]== 35){ah.add(R.raw.n35);}
+            if (re1[0]== 36){ah.add(R.raw.n36);}
+            if (re1[0]== 37){ah.add(R.raw.n37);}
+            if (re1[0]== 38){ah.add(R.raw.n38);}
+            if (re1[0]== 39){ah.add(R.raw.n39);}
+            if (re1[0]== 40){ah.add(R.raw.n40);}
+            if (re1[0]== 41){ah.add(R.raw.n41);}
+
+
+            //ah.size();
+            //mp.stop();
+
+            timer = new Timer();
+
+
+            //mp = MediaPlayer.create(MainActivity.this, ah.get(0));
+            mp = MediaPlayer.create(MainActivity.this,ah.get(i));
+
+            //mp.start();
+            //mp.reset();
+            playNext();*/
+            //
+
+
+            //timer.cancel();
+
+
+
+
+
+
+
+
+            //mediaPlayer=MediaPlayer.create(this,resID);
+            // Start the mediaplayer
+            //mediaPlayer.start();
+            /*n2.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+            if (re3[0]== 3){
+                       n3.start();}}});
+            n3.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    if (re3[0]== 3){
+                        n3.start();}}});*/
+
+            /*if (re3[0]== 2){
+                MediaPlayer n2;
+                n2=MediaPlayer.create(this,R.raw.n2);
+                n2.start();
+            }
+            if (re4[0]== 2){
+                MediaPlayer n2;
+                n2=MediaPlayer.create(this,R.raw.n2);
+                n2.start();
+            }*/
+
+
+        });
+
+
+        final Button bt14 = findViewById(R.id.b14);
+        final Button bt13 = findViewById(R.id.b13);
+        final Button bt12 = findViewById(R.id.b12);
+        final Button btm12 = findViewById(R.id.bm12);
+        final Button btm13 = findViewById(R.id.bm13);
+        final Button btm14 = findViewById(R.id.bm14);
+        final Button btm15 = findViewById(R.id.bm15);
+        final Button bt15 = findViewById(R.id.b15);
+
+        final Button bt24 = findViewById(R.id.b24);
+        final Button bt23 = findViewById(R.id.b23);
+        final Button bt22 = findViewById(R.id.b22);
+        final Button btm22 = findViewById(R.id.bm22);
+        final Button btm23 = findViewById(R.id.bm23);
+        final Button btm24 = findViewById(R.id.bm24);
+        final Button btm25 = findViewById(R.id.bm25);
+        final Button bt25 = findViewById(R.id.b25);
+
+        final Button bt34 = findViewById(R.id.b34);
+        final Button bt33 = findViewById(R.id.b33);
+        final Button bt32 = findViewById(R.id.b32);
+        final Button btm32 = findViewById(R.id.bm32);
+        final Button btm33 = findViewById(R.id.bm33);
+        final Button btm34 = findViewById(R.id.bm34);
+        final Button btm35 = findViewById(R.id.bm35);
+        final Button bt35 = findViewById(R.id.b35);
+
+        final Button bt44 = findViewById(R.id.b44);
+        final Button bt43 = findViewById(R.id.b43);
+        final Button bt42 = findViewById(R.id.b42);
+        final Button btm42 = findViewById(R.id.bm42);
+        final Button btm43 = findViewById(R.id.bm43);
+        final Button btm44 = findViewById(R.id.bm44);
+        final Button btm45 = findViewById(R.id.bm45);
+        final Button bt45 = findViewById(R.id.b45);
+
+        final int[] result = new int[1];
+        final int[] num1 = new int[1];
+        final int[] num2 = new int[1];
+
+        final int[] num45 = new int[1];
+        final int[] num35 = new int[1];
+        final int[] num25 = new int[1];
+        final int[] num15 = new int[1];
+
+        final int[] num155 = new int[1];
+        final int[] num255 = new int[1];
+        final int[] num355 = new int[1];
+        final int[] num455 = new int[1];
+
+        final int[] num215 = new int[1];
+        final int[] num225 = new int[1];
+        final int[] num235 = new int[1];
+        final int[] num245 = new int[1];
+
+        tev.setText("0");
+        tev2.setText("0");
+        tev3.setText("0");
+        tev4.setText("0");
+        tev.setText(valueOf(result[0]));
+        tev2.setText(valueOf(result[0]));
+        tev3.setText(valueOf(result[0]));
+        tev4.setText(valueOf(result[0]));
+
+        rr1.setText(valueOf(result[0]));
+        rr2.setText(valueOf(result[0]));
+        rr3.setText(valueOf(result[0]));
+        rr4.setText(valueOf(result[0]));
+
+        bt15.setOnClickListener(v -> {
+
+            num15[0] = Integer.parseInt(tev.getText().toString());
+            num215[0] = Integer.parseInt(bt15.getText().toString());
+            num155[0] = Integer.parseInt((rr4.getText().toString()));
+
+            result[0] = num15[0] + num215[0];
+
+            tev.setText(valueOf(result[0] + 5));
+
+
+            if (num155[0] > 29) {
+
+                tev.setText(valueOf(result[0]));
+
+            }
+
+
+        });
+        bt14.setOnClickListener(v -> {
+
+            num1[0] = Integer.parseInt(tev.getText().toString());
+            num2[0] = Integer.parseInt(bt14.getText().toString());
+            result[0] = num1[0] + num2[0];
+            tev.setText(valueOf(result[0]));
+
+        });
+        bt13.setOnClickListener((View v) -> {
+
+            num1[0] = Integer.parseInt(tev.getText().toString());
+            num2[0] = Integer.parseInt(bt13.getText().toString());
+            result[0] = num1[0] + num2[0];
+            tev.setText(valueOf(result[0]));
+
+        });
+        bt12.setOnClickListener(v -> {
+
+            num1[0] = Integer.parseInt(tev.getText().toString());
+            num2[0] = Integer.parseInt(bt12.getText().toString());
+            result[0] = num1[0] + num2[0];
+            tev.setText(valueOf(result[0]));
+
+        });
+        btm12.setOnClickListener(v -> {
+
+            num1[0] = Integer.parseInt(tev.getText().toString());
+            num2[0] = Integer.parseInt(btm12.getText().toString());
+            result[0] = num1[0] + num2[0];
+            tev.setText(valueOf(result[0]));
+
+        });
+        btm13.setOnClickListener(v -> {
+
+            num1[0] = Integer.parseInt(tev.getText().toString());
+            num2[0] = Integer.parseInt(btm13.getText().toString());
+            result[0] = num1[0] + num2[0];
+            tev.setText(valueOf(result[0]));
+
+        });
+        btm14.setOnClickListener(v -> {
+
+            num1[0] = Integer.parseInt(tev.getText().toString());
+            num2[0] = Integer.parseInt(btm14.getText().toString());
+            result[0] = num1[0] + num2[0];
+            tev.setText(valueOf(result[0]));
+
+        });
+        btm15.setOnClickListener(v -> {
+
+            num1[0] = Integer.parseInt(tev.getText().toString());
+            num2[0] = Integer.parseInt(btm15.getText().toString());
+            result[0] = num1[0] + num2[0];
+            tev.setText(valueOf(result[0] - 5));
+
+            num155[0] = Integer.parseInt((rr4.getText().toString()));
+            if (num155[0] > 29) {
+
+                tev.setText(valueOf(result[0]));
+
+            }
+
+
+        });
+
+
+        bt25.setOnClickListener(v -> {
+
+            num25[0] = Integer.parseInt(tev2.getText().toString());
+            num225[0] = Integer.parseInt(bt25.getText().toString());
+            num255[0] = Integer.parseInt((rr3.getText().toString()));
+
+            result[0] = num25[0] + num225[0];
+            tev2.setText(valueOf(result[0] + 5));
+
+
+            if (num255[0] > 29) {
+
+                tev2.setText(valueOf(result[0]));
+
+            }
+
+
+        });
+        bt24.setOnClickListener(v -> {
+
+            num1[0] = Integer.parseInt(tev2.getText().toString());
+            num2[0] = Integer.parseInt(bt24.getText().toString());
+            result[0] = num1[0] + num2[0];
+            tev2.setText(valueOf(result[0]));
+
+        });
+        bt23.setOnClickListener(v -> {
+
+            num1[0] = Integer.parseInt(tev2.getText().toString());
+            num2[0] = Integer.parseInt(bt23.getText().toString());
+            result[0] = num1[0] + num2[0];
+            tev2.setText(valueOf(result[0]));
+
+        });
+        bt22.setOnClickListener(v -> {
+
+            num1[0] = Integer.parseInt(tev2.getText().toString());
+            num2[0] = Integer.parseInt(bt22.getText().toString());
+            result[0] = num1[0] + num2[0];
+            tev2.setText(valueOf(result[0]));
+
+        });
+        btm22.setOnClickListener(v -> {
+
+            num1[0] = Integer.parseInt(tev2.getText().toString());
+            num2[0] = Integer.parseInt(btm22.getText().toString());
+            result[0] = num1[0] + num2[0];
+            tev2.setText(valueOf(result[0]));
+
+        });
+        btm23.setOnClickListener(v -> {
+
+            num1[0] = Integer.parseInt(tev2.getText().toString());
+            num2[0] = Integer.parseInt(btm23.getText().toString());
+            result[0] = num1[0] + num2[0];
+            tev2.setText(valueOf(result[0]));
+
+        });
+        btm24.setOnClickListener(v -> {
+
+            num1[0] = Integer.parseInt(tev2.getText().toString());
+            num2[0] = Integer.parseInt(btm24.getText().toString());
+            result[0] = num1[0] + num2[0];
+            tev2.setText(valueOf(result[0]));
+
+        });
+        btm25.setOnClickListener(v -> {
+
+            num1[0] = Integer.parseInt(tev2.getText().toString());
+            num2[0] = Integer.parseInt(btm25.getText().toString());
+            result[0] = num1[0] + num2[0];
+            tev2.setText(valueOf(result[0] - 5));
+            num255[0] = Integer.parseInt((rr3.getText().toString()));
+            if (num255[0] > 29) {
+
+                tev2.setText(valueOf(result[0]));
+
+            }
+
+
+        });
+
+
+        bt35.setOnClickListener(v -> {
+
+            num35[0] = Integer.parseInt(tev3.getText().toString());
+            num235[0] = Integer.parseInt(bt35.getText().toString());
+            num355[0] = Integer.parseInt((rr2.getText().toString()));
+
+
+            result[0] = num35[0] + num235[0];
+            tev3.setText(valueOf(result[0] + 5));
+
+
+            if (num355[0] > 29) {
+
+                tev3.setText(valueOf(result[0]));
+
+            }
+
+
+        });
+        bt34.setOnClickListener(v -> {
+
+            num1[0] = Integer.parseInt(tev3.getText().toString());
+            num2[0] = Integer.parseInt(bt34.getText().toString());
+            result[0] = num1[0] + num2[0];
+            tev3.setText(valueOf(result[0]));
+
+        });
+        bt33.setOnClickListener(v -> {
+
+            num1[0] = Integer.parseInt(tev3.getText().toString());
+            num2[0] = Integer.parseInt(bt33.getText().toString());
+            result[0] = num1[0] + num2[0];
+            tev3.setText(valueOf(result[0]));
+
+        });
+        bt32.setOnClickListener(v -> {
+
+            num1[0] = Integer.parseInt(tev3.getText().toString());
+            num2[0] = Integer.parseInt(bt32.getText().toString());
+            result[0] = num1[0] + num2[0];
+            tev3.setText(valueOf(result[0]));
+
+        });
+        btm32.setOnClickListener(v -> {
+
+            num1[0] = Integer.parseInt(tev3.getText().toString());
+            num2[0] = Integer.parseInt(btm32.getText().toString());
+            result[0] = num1[0] + num2[0];
+            tev3.setText(valueOf(result[0]));
+
+        });
+        btm33.setOnClickListener(v -> {
+
+            num1[0] = Integer.parseInt(tev3.getText().toString());
+            num2[0] = Integer.parseInt(btm33.getText().toString());
+            result[0] = num1[0] + num2[0];
+            tev3.setText(valueOf(result[0]));
+
+        });
+        btm34.setOnClickListener(v -> {
+
+            num1[0] = Integer.parseInt(tev3.getText().toString());
+            num2[0] = Integer.parseInt(btm34.getText().toString());
+            result[0] = num1[0] + num2[0];
+            tev3.setText(valueOf(result[0]));
+
+        });
+        btm35.setOnClickListener(v -> {
+
+            num1[0] = Integer.parseInt(tev3.getText().toString());
+            num2[0] = Integer.parseInt(btm35.getText().toString());
+            result[0] = num1[0] + num2[0];
+            tev3.setText(valueOf(result[0] - 5));
+            num355[0] = Integer.parseInt((rr2.getText().toString()));
+            if (num355[0] > 29) {
+
+                tev3.setText(valueOf(result[0]));
+
+            }
+
+
+        });
+
+
+        bt45.setOnClickListener(v -> {
+
+            num45[0] = Integer.parseInt(tev4.getText().toString());
+            num245[0] = Integer.parseInt(bt45.getText().toString());
+            num455[0] = Integer.parseInt((rr1.getText().toString()));
+            result[0] = num45[0] + num245[0];
+            tev4.setText(valueOf(result[0] + 5));
+
+
+            if (num455[0] > 29) {
+
+                tev4.setText(valueOf(result[0]));
+
+            }
+
+
+        });
+        bt44.setOnClickListener(v -> {
+
+            num1[0] = Integer.parseInt(tev4.getText().toString());
+            num2[0] = Integer.parseInt(bt44.getText().toString());
+            result[0] = num1[0] + num2[0];
+            tev4.setText(valueOf(result[0]));
+
+        });
+        bt43.setOnClickListener(v -> {
+
+            num1[0] = Integer.parseInt(tev4.getText().toString());
+            num2[0] = Integer.parseInt(bt43.getText().toString());
+            result[0] = num1[0] + num2[0];
+            tev4.setText(valueOf(result[0]));
+
+        });
+        bt42.setOnClickListener(v -> {
+
+            num1[0] = Integer.parseInt(tev4.getText().toString());
+            num2[0] = Integer.parseInt(bt42.getText().toString());
+            result[0] = num1[0] + num2[0];
+            tev4.setText(valueOf(result[0]));
+
+        });
+        btm42.setOnClickListener(v -> {
+
+            num1[0] = Integer.parseInt(tev4.getText().toString());
+            num2[0] = Integer.parseInt(btm42.getText().toString());
+            result[0] = num1[0] + num2[0];
+            tev4.setText(valueOf(result[0]));
+
+        });
+        btm43.setOnClickListener(v -> {
+
+            num1[0] = Integer.parseInt(tev4.getText().toString());
+            num2[0] = Integer.parseInt(btm43.getText().toString());
+            result[0] = num1[0] + num2[0];
+            tev4.setText(valueOf(result[0]));
+
+        });
+        btm44.setOnClickListener(v -> {
+
+            num1[0] = Integer.parseInt(tev4.getText().toString());
+            num2[0] = Integer.parseInt(btm44.getText().toString());
+            result[0] = num1[0] + num2[0];
+            tev4.setText(valueOf(result[0]));
+
+        });
+        btm45.setOnClickListener(v -> {
+
+            num1[0] = Integer.parseInt(tev4.getText().toString());
+            num2[0] = Integer.parseInt(btm45.getText().toString());
+            result[0] = num1[0] + num2[0];
+            tev4.setText(valueOf(result[0] - 5));
+            num455[0] = Integer.parseInt((rr1.getText().toString()));
+            if (num455[0] > 29) {
+
+                tev4.setText(valueOf(result[0]));
+
+            }
+
+
+        });
+
+        tev.addTextChangedListener(tw);
+        closeContextMenu();
+        tev2.addTextChangedListener(tw);
+        tev3.addTextChangedListener(tw);
+        tev4.addTextChangedListener(tw);
+
+        ListView.setTranscriptMode(AbsListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
+        ListView.setStackFromBottom(true);
+
+
+    }
+
+            private TextWatcher tw = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            Button button_add = findViewById(R.id.btadd);
+            final int[] ac1 = new int[1];
+            final int[] ac2 = new int[1];
+            final int[] ac3 = new int[1];
+            final int[] ac4 = new int[1];
+
+            TextView o1=findViewById(R.id.tv);
+            TextView o2=findViewById(R.id.tv2);
+            TextView o3=findViewById(R.id.tv3);
+            TextView o4=findViewById(R.id.tv4);
+            ac1[0]= Integer.parseInt(o1.getText().toString());
+            ac2[0]= Integer.parseInt(o2.getText().toString());
+            ac3[0]= Integer.parseInt(o3.getText().toString());
+            ac4[0]= Integer.parseInt(o4.getText().toString());
+            button_add.setEnabled(ac1[0]!=0&&ac2[0]!=0&&ac3[0]!=0&&ac4[0]!=0);
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+
+
+    };
+    //@Override
+    /*public void onDestroy() {
+        if (mp.isPlaying())
+            mp.stop();
+        timer.cancel();
+        super.onDestroy();
+    }*/
+    /*public void playNext() {
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+
+
+
+                //timer = new Timer();
+                mp = MediaPlayer.create(MainActivity.this,ah.get(++i));
+                mp.start();
+                if (ah.size() > i+1) {
+
+
+                    playNext();
+                    //mp.reset();
+
+
+
+                }
+
+
+            }
+        }, mp.getDuration()+1);*/
+
+}
